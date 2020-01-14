@@ -19,7 +19,12 @@
   },
   "homepage": "https://github.com/emilundg/sweelo#readme",
   "devDependencies": {
+    "css-loader": "^3.4.2",
+    "style-loader": "^1.1.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
   }
 }
