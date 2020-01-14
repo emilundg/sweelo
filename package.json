@@ -1,0 +1,20 @@
+{
+  "name": "sweelo",
+  "version": "1.0.0",
+  "description": "Project for displaying currently played song in Spotify.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilundg/sweelo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilundg/sweelo/issues"
+  },
+  "homepage": "https://github.com/emilundg/sweelo#readme"
+}
