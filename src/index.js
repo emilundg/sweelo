@@ -10,7 +10,7 @@ function component() {
     ], ' ');
     element
         .classList
-        .add('hello');
+        .add('text__red');
 
     return element;
 }
