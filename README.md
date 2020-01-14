@@ -1,7 +1,7 @@
 # Sweelo
 Project for displaying currently played song in Spotify.
  
-Tech:
+Tech stack:
 - VueJS
 - Webpack for bundling
 - Typescript
