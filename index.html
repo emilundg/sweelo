@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <title>Sweelo</title>
-  <meta name="author" content="emilundg">
-  <meta name="description" content="Displays currently played spotify song.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>Sweelo</title>
+        <meta name="author" content="emilundg">
+        <meta name="description" content="Displays currently played spotify song.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
 
-<body>
-</body>
+    <body>
+        <div id="app">
+            <h2>{{ welcomeString }}</h2>
+        </div>
+    </body>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                welcomeString: 'Hello World'
+            }
+        })
+    </script>
 
 </html>
