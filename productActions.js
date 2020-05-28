@@ -16,14 +16,24 @@ export const fetchProducts = () => {
     return dispatch => {
         dispatch(fetchProductsBegin());
         return axios
-            .get('https://randomuser.me/api/')
+            .get('https://accounts.spotify.com/authorize', {
+            params: {
+                client_id: '0e02e28b4df649b294c8edcc010595dd',
+                response_type: 'token',
+                redirect_uri: 'https://localhost:8080'
+            }
+        })
             .then(response => {
+                console.log(response)
                 return response.data
             })
             .then(data => {
                 dispatch(fetchProductsSuccess(data));
                 return data;
             })
-            .catch(error => dispatch(fetchProductsFailure(error)));
+            .catch(error => {
+                console.log(error)
+                // dispatch(fetchProductsFailure(error)
+            })
     };
 }
