@@ -1,6 +1,11 @@
-import React from 'react';
-class Header extends React.Component {
-    constructor(props) {
+import * as React from 'react';
+
+type HeaderState = {
+    header: string
+};
+class Header extends React.Component < {},
+HeaderState > {
+    constructor(props : any) {
         super(props);
         this.state = {
             header: "Sweelo"

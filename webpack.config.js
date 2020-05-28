@@ -6,9 +6,13 @@ module.exports = {
     entry: {
         app: './main.js'
     },
+    devtool: "source-map",
     output: {
         path: path.join(__dirname, '/bundle'),
         filename: '[name].bundle.js'
+    },
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
     devServer: {
         inline: true,
@@ -17,6 +21,18 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'ts-loader'
+                    }
+                ]
+            }, {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            }, {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
@@ -32,5 +48,9 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({title: 'Sweelo', template: './index.html'})
-    ]
+    ],
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }
 };
