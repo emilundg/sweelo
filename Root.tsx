@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Header from './components/Header';
 import Content from './components/Content';
-class App extends React.Component {
+class Root extends React.Component {
     render() {
         return (
             <div>
@@ -11,4 +11,4 @@ class App extends React.Component {
         )
     }
 }
-export default App;
+export default Root;
