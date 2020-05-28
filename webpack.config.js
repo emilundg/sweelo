@@ -4,23 +4,33 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/index.js',
-        print: './src/print.js'
+        app: './main.js'
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({title: 'Sweelo'}),
-    ],
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.join(__dirname, '/bundle'),
+        filename: '[name].bundle.js'
+    },
+    devServer: {
+        inline: true,
+        port: 8001
     },
     module: {
         rules: [
             {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }, {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             }
         ]
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({title: 'Sweelo', template: './index.html'})
+    ]
 };
