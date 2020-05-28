@@ -1,14 +1,11 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import {increment, decrement} from '../actions';
-import {fetchProducts} from "../informationActions";
-
-function mapStateToProps(state : any) {
-    return {count: state.count};
-}
+import {fetchProducts} from "../productActions";
 
 export interface ContentProps {
-    compiler : string;
+    products : any;
+    loading : any;
+    error : any;
 }
 
 class Content extends React.Component < ContentProps, {} > {
@@ -17,21 +14,19 @@ class Content extends React.Component < ContentProps, {} > {
             .props
             .dispatch(fetchProducts());
     }
-    increment() {
-        this
-            .props
-            .dispatch(increment())
-    }
     render() {
-        const {compiler, error, loading, products} = this.props;
+        const {error, loading, products} = this.props;
         return (
             <div>
-                <h1>{compiler}</h1>
-                <p>{this.props.count}</p>
-                {products}
-                <button onClick={() => this.increment()}>Increment</button>
+                {products.toString()}
             </div>
         );
     }
 }
-export default connect(mapStateToProps)(Content);
+
+const mapDispatchToProps = (dispatch: any) => ({
+    fetchProducts,
+    dispatch
+});
+const mapStateToProps = (state : any) => ({products: state.products, loading: state.products.loading, error: state.products.error});
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
