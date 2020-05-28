@@ -4,8 +4,8 @@
   "description": "Project for displaying currently played song in Spotify.",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "start": "webpack-dev-server --mode development --open --hot", 
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
