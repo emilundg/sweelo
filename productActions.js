@@ -9,7 +9,8 @@ export const fetchProductsSuccess = products => ({type: FETCH_PRODUCTS_SUCCESS, 
 export const fetchProductsFailure = error => ({type: FETCH_PRODUCTS_FAILURE, payload: {
         error
     }});
-export function fetchProducts() {
+
+export const fetchProducts = () => {
     return dispatch => {
         dispatch(fetchProductsBegin());
         return fetch("/products")

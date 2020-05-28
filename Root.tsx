@@ -6,7 +6,7 @@ class Root extends React.Component {
         return (
             <div>
                 <Header/>
-                <Content compiler={"My compiler"}/>
+                <Content/>
             </div>
         )
     }

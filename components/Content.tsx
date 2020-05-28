@@ -6,6 +6,7 @@ export interface ContentProps {
     products : any;
     loading : any;
     error : any;
+    dispatch : any;
 }
 
 class Content extends React.Component < ContentProps, {} > {
@@ -24,9 +25,6 @@ class Content extends React.Component < ContentProps, {} > {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => ({
-    fetchProducts,
-    dispatch
-});
+const mapDispatchToProps = (dispatch : any) => ({fetchProducts, dispatch});
 const mapStateToProps = (state : any) => ({products: state.products, loading: state.products.loading, error: state.products.error});
 export default connect(mapStateToProps, mapDispatchToProps)(Content);
