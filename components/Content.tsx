@@ -19,12 +19,14 @@ class Content extends React.Component < ContentProps, {} > {
         const {error, loading, products} = this.props;
         return (
             <div>
-                {products.toString()}
+                {products.map((user: any) => {
+                    return (<p key={user.email}>{user.email}</p>)
+                })}
             </div>
         );
     }
 }
 
 const mapDispatchToProps = (dispatch : any) => ({fetchProducts, dispatch});
-const mapStateToProps = (state : any) => ({products: state.products, loading: state.products.loading, error: state.products.error});
+const mapStateToProps = (state : any) => ({products: state.products.items, loading: state.products.loading, error: state.products.error});
 export default connect(mapStateToProps, mapDispatchToProps)(Content);

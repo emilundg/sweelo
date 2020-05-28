@@ -14,14 +14,12 @@ export default function productReducer(state = initialState, action) {
                 loading: true,
                 error: null
             };
-
         case FETCH_PRODUCTS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                items: action.payload.products
+                items: action.payload.products.results
             };
-
         case FETCH_PRODUCTS_FAILURE:
             return {
                 ...state,
