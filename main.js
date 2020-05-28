@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
 import {createStore} from 'redux';
-import {Provider} from 'react-redux';
+import {Provider, applyMiddleware} from 'react-redux';
+import thunk from 'redux-thunk';
 
 const initialState = {
     count: 0
@@ -24,10 +25,7 @@ function reducer(state = initialState, action) {
     }
 }
 
-const store = createStore(reducer);
-store.dispatch({type: "INCREMENT"});
-store.dispatch({type: 'DECREMENT'});
-
+const store = createStore(reducer, applyMiddleware(thunk));
 const App = () => (
     <Provider store={store}>
         <Root compiler="TypeScript" framework="React"/>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import { INCREMENT, DECREMENT } from './actions';
+import {increment, decrement} from '../actions';
 
 function mapStateToProps(state : any) {
     return {count: state.count};
@@ -14,7 +14,7 @@ class Content extends React.Component < ContentProps, {} > {
     increment() {
         this
             .props
-            .dispatch({type: INCREMENT})
+            .dispatch(increment())
     }
     render() {
         const {compiler} = this.props;
