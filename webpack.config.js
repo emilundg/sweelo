@@ -10,7 +10,6 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({title: 'Sweelo'}),
-        new VueLoaderPlugin()
     ],
     output: {
         filename: '[name].bundle.js',
@@ -21,9 +20,6 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
-            }, {
-                test: /\.vue$/,
-                loader: 'vue-loader'
             }
         ]
     }
