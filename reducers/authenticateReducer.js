@@ -4,7 +4,7 @@ const initialState = {
     token: undefined
 };
 
-export default function productReducer(state = initialState, action) {
+export default function authenticateReducer(state = initialState, action) {
     switch (action.type) {
         case SET_ACCESS_TOKEN:
             return {
