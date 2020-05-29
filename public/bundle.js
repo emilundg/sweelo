@@ -133,15 +133,15 @@ const react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/rea
 const productActions_1 = __webpack_require__(/*! ../productActions */ "./productActions.js");
 class Content extends React.Component {
     componentDidMount() {
-        // this
-        //     .props
-        //     .dispatch(fetchProducts());
+        this
+            .props
+            .dispatch(productActions_1.fetchProducts());
     }
     render() {
         const { error, loading, products } = this.props;
         return (React.createElement("div", null,
             React.createElement("h1", null, "Products"),
-            products.map((user) => {
+            products && products.map((user) => {
                 return (React.createElement("p", { key: user.email }, user.email));
             })));
     }

@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-
 const app = express();
+var cors = require('cors');
 const port = process.env.PORT || 3000;
 const DIST_DIR = path.join(__dirname, './public');
 const HTML_FILE = path.join(DIST_DIR, 'index.html');
@@ -13,21 +13,14 @@ authenticateSpotifyUser = async() => {
         params: {
             client_id: '0e02e28b4df649b294c8edcc010595dd',
             response_type: 'token',
-            redirect_uri: 'https://localhost:3000'
+            redirect_uri: 'https://localhost:3000/playback'
         }
     });
 }
 
-app.get('/information', async(req, res) => {
-    try {
-        const response = await authenticateSpotifyUser();
-        console.log(response.data)
-        res.send(response.data);
-    } catch (error) {
-        res
-            .status(500)
-            .send({error: e.message})
-    }
+app.get('/information', cors(), async(req, res) => {
+    res.redirect('https://accounts.spotify.com/authorize?client_id=0e02e28b4df649b294c8edcc010595d' +
+            'd&redirect_uri=' + encodeURIComponent('https://localhost:3000/playback') + '&response_type=token');
 })
 
 app.get('*', (req, res) => {
