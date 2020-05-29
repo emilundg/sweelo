@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+// @ts-ignore
 import {fetchProducts} from "../productActions";
 
 export interface ContentProps {
