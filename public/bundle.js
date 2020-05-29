@@ -210,17 +210,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 // @ts-ignore
-const productActions_1 = __webpack_require__(/*! ../productActions */ "./productActions.js");
 const spotifyconfig_1 = __webpack_require__(/*! ../spotifyconfig */ "./spotifyconfig.ts");
 class Content extends React.Component {
     render() {
         const { clientId, redirectUri, endPoint, scope } = spotifyconfig_1.spotifyConfig.options;
         return (React.createElement("div", null,
-            React.createElement("h1", null, "Products"),
             React.createElement("a", { href: `${endPoint}?client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true` }, "Authorize")));
     }
 }
-const mapDispatchToProps = (dispatch) => ({ fetchProducts: productActions_1.fetchProducts, dispatch });
+const mapDispatchToProps = (dispatch) => ({ dispatch });
 const mapStateToProps = (state) => ({});
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Content);
 
@@ -296,12 +294,17 @@ class Playback extends React.Component {
         }
     }
     render() {
-        const { token, currentlyPlayingResponse } = this.props;
-        return (React.createElement("div", null,
+        const { currentlyPlayingResponse } = this.props;
+        return (React.createElement("div", null, currentlyPlayingResponse && React.createElement("div", null,
+            React.createElement("h1", null, currentlyPlayingResponse.item.name),
             console.log(currentlyPlayingResponse),
-            React.createElement("h1", null, "Playback route"),
-            React.createElement("p", null, "test"),
-            React.createElement("p", null, token)));
+            currentlyPlayingResponse
+                .item
+                .album
+                .images
+                .map((image) => {
+                return (React.createElement("img", { key: image.url, src: image.url, height: image.height, width: image.width }));
+            }))));
     }
 }
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
@@ -37380,116 +37383,6 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./productActions.js":
-/*!***************************!*\
-  !*** ./productActions.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.fetchProducts = exports.fetchProductsFailure = exports.fetchProductsSuccess = exports.fetchProductsBegin = exports.FETCH_PRODUCTS_FAILURE = exports.FETCH_PRODUCTS_SUCCESS = exports.FETCH_PRODUCTS_BEGIN = undefined;
-
-var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FETCH_PRODUCTS_BEGIN = exports.FETCH_PRODUCTS_BEGIN = 'FETCH_PRODUCTS_BEGIN';
-var FETCH_PRODUCTS_SUCCESS = exports.FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
-var FETCH_PRODUCTS_FAILURE = exports.FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
-
-var fetchProductsBegin = exports.fetchProductsBegin = function fetchProductsBegin() {
-    return { type: FETCH_PRODUCTS_BEGIN };
-};
-var fetchProductsSuccess = exports.fetchProductsSuccess = function fetchProductsSuccess(products) {
-    return { type: FETCH_PRODUCTS_SUCCESS, payload: {
-            products: products
-        } };
-};
-var fetchProductsFailure = exports.fetchProductsFailure = function fetchProductsFailure(error) {
-    return { type: FETCH_PRODUCTS_FAILURE, payload: {
-            error: error
-        } };
-};
-
-var fetchProducts = exports.fetchProducts = function fetchProducts() {
-    return function (dispatch) {
-        dispatch(fetchProductsBegin());
-        return _axios2.default.get('/information').then(function (response) {
-            return response.data;
-        }).then(function (data) {
-            dispatch(fetchProductsSuccess(data));
-            return data;
-        }).catch(function (error) {
-            console.log(error);
-            // dispatch(fetchProductsFailure(error)
-        });
-    };
-};
-
-/***/ }),
-
-/***/ "./productReducer.js":
-/*!***************************!*\
-  !*** ./productReducer.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports.default = productReducer;
-
-var _productActions = __webpack_require__(/*! ./productActions */ "./productActions.js");
-
-var initialState = {
-    items: [],
-    loading: false,
-    error: null
-};
-
-function productReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case _productActions.FETCH_PRODUCTS_BEGIN:
-            return _extends({}, state, {
-                loading: true,
-                error: null
-            });
-        case _productActions.FETCH_PRODUCTS_SUCCESS:
-            return _extends({}, state, {
-                loading: false,
-                items: action.payload.products.results
-            });
-        case _productActions.FETCH_PRODUCTS_FAILURE:
-            return _extends({}, state, {
-                loading: false,
-                error: action.payload.error,
-                items: []
-            });
-        default:
-            return state;
-    }
-}
-
-/***/ }),
-
 /***/ "./reducers/authenticateReducer.js":
 /*!*****************************************!*\
   !*** ./reducers/authenticateReducer.js ***!
@@ -37600,10 +37493,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
-var _productReducer = __webpack_require__(/*! ./productReducer */ "./productReducer.js");
-
-var _productReducer2 = _interopRequireDefault(_productReducer);
-
 var _authenticateReducer = __webpack_require__(/*! ./reducers/authenticateReducer */ "./reducers/authenticateReducer.js");
 
 var _authenticateReducer2 = _interopRequireDefault(_authenticateReducer);
@@ -37614,7 +37503,7 @@ var _spotifyReducer2 = _interopRequireDefault(_spotifyReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.combineReducers)({ products: _productReducer2.default, authenticate: _authenticateReducer2.default, spotify: _spotifyReducer2.default });
+exports.default = (0, _redux.combineReducers)({ authenticate: _authenticateReducer2.default, spotify: _spotifyReducer2.default });
 
 /***/ }),
 

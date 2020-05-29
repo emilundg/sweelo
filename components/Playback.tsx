@@ -8,7 +8,7 @@ import {getCurrentlyPlaying} from "../actions/spotifyActions";
 export interface PlaybackProps {
     dispatch : any;
     token : string;
-    currentlyPlayingResponse : object;
+    currentlyPlayingResponse : any;
 }
 
 class Playback extends React.Component < PlaybackProps, {} > {
@@ -31,9 +31,17 @@ class Playback extends React.Component < PlaybackProps, {} > {
         const {currentlyPlayingResponse} = this.props;
         return (
             <div>
-                {console.log(currentlyPlayingResponse)}
-                <h1>Playback route</h1>
-                <p>test</p>
+                {currentlyPlayingResponse && <div>
+                    <h1>{currentlyPlayingResponse.item.name}</h1>
+                    {console.log(currentlyPlayingResponse)}
+                    {currentlyPlayingResponse
+                        .item
+                        .album
+                        .images
+                        .map((image : any) => {
+                            return (<img key={image.url} src={image.url} height={image.height} width={image.width}/>)
+                        })}
+                </div>}
             </div>
         );
     }
