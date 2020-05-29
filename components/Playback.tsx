@@ -8,8 +8,7 @@ export interface PlaybackProps {
 class Playback extends React.Component < PlaybackProps, {} > {
     componentDidMount() {
         if (window.location.hash) {
-            const token = window.location.hash.substring(1)
-            console.log(token + "ok")
+            const token = window.location.hash.split('=')[1]
         } 
     }
     render() {

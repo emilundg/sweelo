@@ -48,6 +48,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({title: 'Sweelo', template: './public/index.html'})
+        new HtmlWebpackPlugin({title: 'Sweelo', template: './index.html'})
     ]
 };
