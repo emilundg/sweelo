@@ -12,14 +12,15 @@ export interface ContentProps {
 
 class Content extends React.Component < ContentProps, {} > {
     componentDidMount() {
-        this
-            .props
-            .dispatch(fetchProducts());
+        // this
+        //     .props
+        //     .dispatch(fetchProducts());
     }
     render() {
         const {error, loading, products} = this.props;
         return (
             <div>
+                <h1>Products</h1>
                 {products.map((user: any) => {
                     return (<p key={user.email}>{user.email}</p>)
                 })}

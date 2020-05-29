@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Link} from "react-router-dom";
 
 type HeaderState = {
     header: string
@@ -16,6 +17,16 @@ HeaderState > {
         return (
             <div>
                 <h1>{header}</h1>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/playback">Playback</Link>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         );
     }
