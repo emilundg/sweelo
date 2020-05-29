@@ -18,7 +18,6 @@ getCurrentSong = async(token) => {
 app.get('/current-song', async(req, res) => {
     try {
         const response = await getCurrentSong(req.query.token);
-        console.log(response.data);
         res.send(response.data);
     } catch (error) {
         console.log(error)

@@ -214,15 +214,14 @@ const productActions_1 = __webpack_require__(/*! ../productActions */ "./product
 const spotifyconfig_1 = __webpack_require__(/*! ../spotifyconfig */ "./spotifyconfig.ts");
 class Content extends React.Component {
     render() {
-        const { error, loading, products } = this.props;
-        const { clientId, redirectUri, endPoint } = spotifyconfig_1.spotifyConfig.options;
+        const { clientId, redirectUri, endPoint, scope } = spotifyconfig_1.spotifyConfig.options;
         return (React.createElement("div", null,
             React.createElement("h1", null, "Products"),
-            React.createElement("a", { href: `${endPoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true` }, "Authorize")));
+            React.createElement("a", { href: `${endPoint}?client_id=${clientId}&scope=${scope}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true` }, "Authorize")));
     }
 }
 const mapDispatchToProps = (dispatch) => ({ fetchProducts: productActions_1.fetchProducts, dispatch });
-const mapStateToProps = (state) => ({ products: state.products.items, loading: state.products.loading, error: state.products.error });
+const mapStateToProps = (state) => ({});
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Content);
 
 
@@ -286,7 +285,8 @@ class Playback extends React.Component {
             const token = window
                 .location
                 .hash
-                .split('=')[1];
+                .split('=')[1]
+                .split('&')[0];
             this
                 .props
                 .dispatch(authenticateActions_1.setAccessToken(token));
@@ -296,15 +296,16 @@ class Playback extends React.Component {
         }
     }
     render() {
-        const { token } = this.props;
+        const { token, currentlyPlayingResponse } = this.props;
         return (React.createElement("div", null,
+            console.log(currentlyPlayingResponse),
             React.createElement("h1", null, "Playback route"),
             React.createElement("p", null, "test"),
             React.createElement("p", null, token)));
     }
 }
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
-const mapStateToProps = (state) => ({ token: state.authenticate.token });
+const mapStateToProps = (state) => ({ token: state.authenticate.token, currentlyPlayingResponse: state.spotify.currentlyPlayingResponse });
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Playback);
 
 
@@ -37632,6 +37633,7 @@ exports.spotifyConfig = {
     options: {
         endPoint: 'https://accounts.spotify.com/authorize',
         clientId: '0e02e28b4df649b294c8edcc010595dd',
+        scope: 'user-read-currently-playing',
         redirectUri: 'http://localhost:8080/playback'
     }
 };
