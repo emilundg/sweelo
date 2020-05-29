@@ -8,15 +8,16 @@ module.exports = {
     },
     devtool: "source-map",
     output: {
-        path: path.join(__dirname, '/bundle'),
-        filename: '[name].bundle.js'
+        path: path.join(__dirname, '/public'),
+        filename: 'bundle.js',
+        publicPath: "/"
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
     devServer: {
-        inline: true,
-        port: 8080
+        hot: true,
+        historyApiFallback: true
     },
     module: {
         rules: [
