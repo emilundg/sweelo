@@ -2,28 +2,23 @@ import * as React from 'react';
 import Header from './components/Header';
 import Content from './components/Content';
 import Playback from './components/Playback';
-import {Route, Switch} from 'react-router-dom';
+import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 
 class Root extends React.Component {
     render() {
-        const Root = () => (
-            <div>
+        return (
+            <Router>
+                <Header/>
                 <Switch>
-                    <Header/>
-                    <Route path='/'>
-                        <Content/>
-                    </Route>
                     <Route path='/playback'>
                         <Playback/>
                     </Route>
+                    <Route path='/'>
+                        <Content/>
+                    </Route>
                 </Switch>
-            </div>
+            </Router>
         )
-        return (
-            <Switch>
-                <Root/>
-            </Switch>
-        );
     }
 }
 export default Root;

@@ -1,12 +1,11 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-// @ts-ignore
 
 export interface PlaybackProps {
     dispatch : any;
 }
 
-class Playback extends React.Component < PlaybackProps, {} > {
+class Playback extends React.Component <PlaybackProps, {} > {
     render() {
         return (
             <div>

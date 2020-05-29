@@ -103,15 +103,13 @@ const Playback_1 = __webpack_require__(/*! ./components/Playback */ "./component
 const react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 class Root extends React.Component {
     render() {
-        const Root = () => (React.createElement("div", null,
+        return (React.createElement(react_router_dom_1.BrowserRouter, null,
+            React.createElement(Header_1.default, null),
             React.createElement(react_router_dom_1.Switch, null,
-                React.createElement(Header_1.default, null),
-                React.createElement(react_router_dom_1.Route, { path: '/' },
-                    React.createElement(Content_1.default, null)),
                 React.createElement(react_router_dom_1.Route, { path: '/playback' },
-                    React.createElement(Playback_1.default, null)))));
-        return (React.createElement(react_router_dom_1.Switch, null,
-            React.createElement(Root, null)));
+                    React.createElement(Playback_1.default, null)),
+                React.createElement(react_router_dom_1.Route, { path: '/' },
+                    React.createElement(Content_1.default, null)))));
     }
 }
 exports.default = Root;
@@ -246,8 +244,6 @@ var _reduxThunk = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-t
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
 var _rootReducer = __webpack_require__(/*! ./rootReducer */ "./rootReducer.js");
 
 var _rootReducer2 = _interopRequireDefault(_rootReducer);
@@ -259,11 +255,7 @@ var App = function App() {
     return _react2.default.createElement(
         _reactRedux.Provider,
         { store: store },
-        _react2.default.createElement(
-            _reactRouterDom.BrowserRouter,
-            null,
-            _react2.default.createElement(_Root2.default, null)
-        )
+        _react2.default.createElement(_Root2.default, null)
     );
 };
 
