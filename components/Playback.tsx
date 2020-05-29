@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
+// @ts-ignore
+import {setAccessToken} from "../actions/authenticateActions";
 
 export interface PlaybackProps {
     dispatch : any;
@@ -8,8 +10,15 @@ export interface PlaybackProps {
 class Playback extends React.Component < PlaybackProps, {} > {
     componentDidMount() {
         if (window.location.hash) {
-            const token = window.location.hash.split('=')[1]
-        } 
+            const token = window
+                .location
+                .hash
+                .split('=')[1]
+            console.log(token)
+            this
+                .props
+                .dispatch(setAccessToken(token))
+        }
     }
     render() {
         return (
@@ -21,6 +30,6 @@ class Playback extends React.Component < PlaybackProps, {} > {
     }
 }
 
-const mapDispatchToProps = (dispatch : any) => ({dispatch});
+const mapDispatchToProps = (dispatch : any) => ({setAccessToken, dispatch});
 const mapStateToProps = (state : any) => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(Playback);
