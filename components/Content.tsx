@@ -2,6 +2,7 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 // @ts-ignore
 import {fetchProducts} from "../productActions";
+import {spotifyConfig} from '../spotifyconfig';
 
 export interface ContentProps {
     products : any;
@@ -11,21 +12,14 @@ export interface ContentProps {
 }
 
 class Content extends React.Component < ContentProps, {} > {
-    componentDidMount() {
-        this
-            .props
-            .dispatch(fetchProducts());
-    }
     render() {
         const {error, loading, products} = this.props;
+        const {clientId, redirectUri, endPoint} = spotifyConfig.options;
         return (
             <div>
                 <h1>Products</h1>
-                {products && products.map((user : any) => {
-                    return (
-                        <p key={user.email}>{user.email}</p>
-                    )
-                })}
+                <a
+                    href={`${endPoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`}>Authorize</a>
             </div>
         );
     }
