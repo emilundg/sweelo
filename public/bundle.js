@@ -343,22 +343,37 @@ class HighscoreTable extends React.Component {
     }
     render() {
         const { cantGetEnoughRB } = this.props;
-        return (React.createElement("div", { style: {
-                display: 'flex',
-                justifyContent: 'center',
-                borderRadius: 21,
-                height: 610,
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                right: 0,
-                width: 377,
-                backgroundColor: 'rgba(0,0,0,0.21)'
-            } },
-            React.createElement("h1", null, "Highscore"),
-            React.createElement("div", null, cantGetEnoughRB)));
+        return (React.createElement("div", { style: styles.highscore },
+            React.createElement("div", { style: styles.highscore__tableHeader }, "HIGHSCORE"),
+            React.createElement("div", { style: styles.highscore__number }, cantGetEnoughRB)));
     }
 }
+const styles = {
+    highscore: {
+        textAlign: 'center',
+        padding: 34,
+        borderRadius: 21,
+        height: 610,
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        width: 377,
+        backgroundColor: 'rgba(0,0,0,0.55)'
+    },
+    highscore__tableHeader: {
+        fontSize: 21,
+        color: 'rgba(255,255,255, 0.89)'
+    },
+    highscore__number: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        fontSize: 133,
+        height: '100%'
+    }
+};
 exports.default = HighscoreTable;
 
 
