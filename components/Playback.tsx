@@ -99,20 +99,24 @@ PlaybackState > {
                         {console.log(currentlyPlayingResponse)}
                         <div style={styles.playback_albumContainer}>
                             <div style={styles.playback__songtitle}>{currentlyPlayingResponse.item.name}</div>
-                            {trackItem
-                                .artists
-                                .map((artist : any) => {
-                                    return (
-                                        <p key={artist.id}>{artist.name}</p>
-                                    )
-                                })}
+                            <div style={styles.playback__artistWrapper}>
+                                {trackItem
+                                    .artists
+                                    .map((artist : any) => {
+                                        return (
+                                            <div style={styles.playback__artistText} key={artist.id}>{artist.name}</div>
+                                        )
+                                    })}
+                            </div>
                             <div
                                 style={{
+                                marginTop: 21,
                                 height: 400,
                                 width: 400,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'fit',
                                 backgroundImage: `url(${trackItem.album.images[0].url})`,
+                                transition: 'box-shadow 0.3s ease-in-out',
                                 boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.34)'
                             }}></div>
                         </div>
@@ -137,6 +141,16 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         flexDirection: 'column'
+    },
+    playback__artistWrapper: {
+        display: 'flex',
+        paddingBottom: 21,
+        flexDirection: 'row'
+    },
+    playback__artistText: {
+        fontSize: 21,
+        color: '#d40078',
+        margin: 5
     }
 }
 

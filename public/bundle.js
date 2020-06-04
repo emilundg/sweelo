@@ -485,17 +485,19 @@ class Playback extends React.Component {
                     console.log(currentlyPlayingResponse),
                     React.createElement("div", { style: styles.playback_albumContainer },
                         React.createElement("div", { style: styles.playback__songtitle }, currentlyPlayingResponse.item.name),
-                        trackItem
+                        React.createElement("div", { style: styles.playback__artistWrapper }, trackItem
                             .artists
                             .map((artist) => {
-                            return (React.createElement("p", { key: artist.id }, artist.name));
-                        }),
+                            return (React.createElement("div", { style: styles.playback__artistText, key: artist.id }, artist.name));
+                        })),
                         React.createElement("div", { style: {
+                                marginTop: 21,
                                 height: 400,
                                 width: 400,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'fit',
                                 backgroundImage: `url(${trackItem.album.images[0].url})`,
+                                transition: 'box-shadow 0.3s ease-in-out',
                                 boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.34)'
                             } }))),
                 React.createElement(HighScoreTable_1.default, { cantGetEnoughRB: cantGetEnoughRB })));
@@ -513,6 +515,16 @@ const styles = {
         flex: 1,
         justifyContent: 'center',
         flexDirection: 'column'
+    },
+    playback__artistWrapper: {
+        display: 'flex',
+        paddingBottom: 21,
+        flexDirection: 'row'
+    },
+    playback__artistText: {
+        fontSize: 21,
+        color: '#d40078',
+        margin: 5
     }
 };
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
