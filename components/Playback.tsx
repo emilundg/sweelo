@@ -7,6 +7,7 @@ import {getCurrentlyPlaying} from "../actions/spotifyActions";
 // @ts-ignore
 import HighscoreTable from "./HighScoreTable";
 
+let partyInterval : any;
 export interface PlaybackProps {
     dispatch : any;
     token : string;
@@ -16,7 +17,8 @@ export interface PlaybackProps {
 }
 
 type PlaybackState = {
-    cantGetEnoughRB: number
+    currentDiscoBackground: string | null;
+    cantGetEnoughRB: number;
 };
 
 class Playback extends React.Component < PlaybackProps,
@@ -24,6 +26,7 @@ PlaybackState > {
     constructor(props : any) {
         super(props);
         this.state = {
+            currentDiscoBackground: null,
             cantGetEnoughRB: 0
         }
     }
@@ -53,27 +56,45 @@ PlaybackState > {
             const {trackItem, progress} = this.props;
             clearTimeout(changeSongTimer);
             this.setSongTimer(progress, trackItem, token);
-            console.log(trackItem.name)
             if (trackItem.name === 'Friday') {
+                this.partyDontStartTilIWalkIn();
                 let {cantGetEnoughRB} = this.state;
                 cantGetEnoughRB = cantGetEnoughRB += 1;
                 this.setState({cantGetEnoughRB});
+            } else {
+                this.partyStoppedBecauseIwalkedOut();
             }
         }, (duration_ms - progress));
     }
+    partyDontStartTilIWalkIn() {
+        const partyColors = ['#0FC0FC', '#7B1DAF', '#FF2FB9', '#D4FF47', '#1B3649'];
+        partyInterval = setInterval(() => {
+            this.setState({
+                currentDiscoBackground: partyColors[Math.floor(Math.random() * (partyColors.length - 0) + 0)]
+            })
+        }, 1000)
+    }
+    partyStoppedBecauseIwalkedOut() {
+        clearInterval(partyInterval);
+    }
     render() {
         const {currentlyPlayingResponse, trackItem} = this.props;
-        const {cantGetEnoughRB} = this.state;
+        const {cantGetEnoughRB, currentDiscoBackground} = this.state;
         if (currentlyPlayingResponse) {
             return (
-                <div>
+                <div
+                    style={{
+                    height: '100vh',
+                    transition: 'background-color 250ms linear',
+                    backgroundColor: currentDiscoBackground
+                }}>
                     <div>
                         {console.log(currentlyPlayingResponse)}
                         <div style={styles.playback_albumContainer}>
                             <div style={styles.playback__songtitle}>{currentlyPlayingResponse.item.name}</div>
                             {trackItem
                                 .artists
-                                .map((artist: []) => {
+                                .map((artist : any) => {
                                     return (
                                         <p key={artist.id}>{artist.name}</p>
                                     )

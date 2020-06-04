@@ -408,6 +408,7 @@ const authenticateActions_1 = __webpack_require__(/*! ../actions/authenticateAct
 const spotifyActions_1 = __webpack_require__(/*! ../actions/spotifyActions */ "./actions/spotifyActions.js");
 // @ts-ignore
 const HighScoreTable_1 = __webpack_require__(/*! ./HighScoreTable */ "./components/HighScoreTable.tsx");
+let partyInterval;
 class Playback extends React.Component {
     constructor(props) {
         super(props);
@@ -429,6 +430,7 @@ class Playback extends React.Component {
             }
         });
         this.state = {
+            currentDiscoBackground: null,
             cantGetEnoughRB: 0
         };
     }
@@ -441,19 +443,37 @@ class Playback extends React.Component {
             const { trackItem, progress } = this.props;
             clearTimeout(changeSongTimer);
             this.setSongTimer(progress, trackItem, token);
-            console.log(trackItem.name);
             if (trackItem.name === 'Friday') {
+                this.partyDontStartTilIWalkIn();
                 let { cantGetEnoughRB } = this.state;
                 cantGetEnoughRB = cantGetEnoughRB += 1;
                 this.setState({ cantGetEnoughRB });
             }
+            else {
+                this.partyStoppedBecauseIwalkedOut();
+            }
         }), (duration_ms - progress));
+    }
+    partyDontStartTilIWalkIn() {
+        const partyColors = ['#0FC0FC', '#7B1DAF', '#FF2FB9', '#D4FF47', '#1B3649'];
+        partyInterval = setInterval(() => {
+            this.setState({
+                currentDiscoBackground: partyColors[Math.floor(Math.random() * (partyColors.length - 0) + 0)]
+            });
+        }, 1000);
+    }
+    partyStoppedBecauseIwalkedOut() {
+        clearInterval(partyInterval);
     }
     render() {
         const { currentlyPlayingResponse, trackItem } = this.props;
-        const { cantGetEnoughRB } = this.state;
+        const { cantGetEnoughRB, currentDiscoBackground } = this.state;
         if (currentlyPlayingResponse) {
-            return (React.createElement("div", null,
+            return (React.createElement("div", { style: {
+                    height: '100vh',
+                    transition: 'background-color 250ms linear',
+                    backgroundColor: currentDiscoBackground
+                } },
                 React.createElement("div", null,
                     console.log(currentlyPlayingResponse),
                     React.createElement("div", { style: styles.playback_albumContainer },
