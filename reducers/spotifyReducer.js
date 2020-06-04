@@ -2,6 +2,8 @@ import {FETCH_CURRENTLYPLAYING_BEGIN, FETCH_CURRENTLYPLAYING_SUCCESS, FETCH_CURR
 
 const initialState = {
     currentlyPlayingResponse: undefined,
+    trackItem: undefined,
+    progress: undefined,
     loading: false,
     error: null
 };
@@ -18,6 +20,8 @@ export default function spotifyReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+                progress: action.payload.response.progress_ms,
+                trackItem: action.payload.response.item,
                 currentlyPlayingResponse: action.payload.response
             };
         case FETCH_CURRENTLYPLAYING_FAILURE:

@@ -325,6 +325,45 @@ exports.default = Header;
 
 /***/ }),
 
+/***/ "./components/HighScoreTable.tsx":
+/*!***************************************!*\
+  !*** ./components/HighScoreTable.tsx ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+class HighscoreTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    render() {
+        const { cantGetEnoughRB } = this.props;
+        return (React.createElement("div", { style: {
+                display: 'flex',
+                justifyContent: 'center',
+                borderRadius: 21,
+                height: 610,
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                right: 0,
+                width: 377,
+                backgroundColor: 'rgba(0,0,0,0.21)'
+            } },
+            React.createElement("h1", null, "Highscore"),
+            React.createElement("div", null, cantGetEnoughRB)));
+    }
+}
+exports.default = HighscoreTable;
+
+
+/***/ }),
+
 /***/ "./components/Playback.tsx":
 /*!*********************************!*\
   !*** ./components/Playback.tsx ***!
@@ -334,6 +373,15 @@ exports.default = Header;
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -341,43 +389,77 @@ const react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/rea
 const authenticateActions_1 = __webpack_require__(/*! ../actions/authenticateActions */ "./actions/authenticateActions.js");
 // @ts-ignore
 const spotifyActions_1 = __webpack_require__(/*! ../actions/spotifyActions */ "./actions/spotifyActions.js");
+// @ts-ignore
+const HighScoreTable_1 = __webpack_require__(/*! ./HighScoreTable */ "./components/HighScoreTable.tsx");
 class Playback extends React.Component {
-    componentDidMount() {
-        if (window.location.hash) {
-            const token = window
-                .location
-                .hash
-                .split('=')[1]
-                .split('&')[0];
-            this
-                .props
-                .dispatch(authenticateActions_1.setAccessToken(token));
-            this
+    constructor(props) {
+        super(props);
+        this.componentDidMount = () => __awaiter(this, void 0, void 0, function* () {
+            if (window.location.hash) {
+                const token = window
+                    .location
+                    .hash
+                    .split('=')[1]
+                    .split('&')[0];
+                this
+                    .props
+                    .dispatch(authenticateActions_1.setAccessToken(token));
+                yield this
+                    .props
+                    .dispatch(spotifyActions_1.getCurrentlyPlaying(token));
+                const { trackItem, progress } = this.props;
+                this.setSongTimer(progress, trackItem, token);
+            }
+        });
+        this.state = {
+            cantGetEnoughRB: 0
+        };
+    }
+    setSongTimer(progress, trackItem, token) {
+        const { duration_ms } = trackItem;
+        const changeSongTimer = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+            yield this
                 .props
                 .dispatch(spotifyActions_1.getCurrentlyPlaying(token));
-        }
+            const { trackItem, progress } = this.props;
+            clearInterval(changeSongTimer);
+            this.setSongTimer(progress, trackItem, token);
+            console.log(trackItem.name);
+            if (trackItem.name === 'Friday') {
+                let { cantGetEnoughRB } = this.state;
+                cantGetEnoughRB = cantGetEnoughRB += 1;
+                this.setState({ cantGetEnoughRB });
+            }
+        }), (duration_ms - progress));
     }
     render() {
-        const { currentlyPlayingResponse } = this.props;
+        const { currentlyPlayingResponse, trackItem } = this.props;
+        const { cantGetEnoughRB } = this.state;
         if (currentlyPlayingResponse) {
             return (React.createElement("div", null,
-                React.createElement("h1", null, "2k10"),
-                currentlyPlayingResponse && React.createElement("div", null,
+                React.createElement("div", null,
                     React.createElement("h1", null, currentlyPlayingResponse.item.name),
                     console.log(currentlyPlayingResponse),
-                    currentlyPlayingResponse
-                        .item
-                        .album
-                        .images
-                        .map((image) => {
-                        return (React.createElement("img", { key: image.url, src: image.url, height: image.height, width: image.width }));
-                    }))));
+                    React.createElement("div", { style: {
+                            display: 'flex',
+                            flex: 1,
+                            justifyContent: 'center'
+                        } },
+                        React.createElement("div", { style: {
+                                height: 400,
+                                width: 400,
+                                backgroundPosition: 'center',
+                                backgroundSize: 'fit',
+                                backgroundImage: `url(${trackItem.album.images[0].url})`,
+                                boxShadow: 'rgb(255, 255, 255) 0px 8px 0px 0px, rgba(0, 0, 0, 0.3) 0px 0px 8px'
+                            } }))),
+                React.createElement(HighScoreTable_1.default, { cantGetEnoughRB: cantGetEnoughRB })));
         }
         return (React.createElement("div", null));
     }
 }
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
-const mapStateToProps = (state) => ({ token: state.authenticate.token, currentlyPlayingResponse: state.spotify.currentlyPlayingResponse });
+const mapStateToProps = (state) => ({ token: state.authenticate.token, currentlyPlayingResponse: state.spotify.currentlyPlayingResponse, trackItem: state.spotify.trackItem, progress: state.spotify.progress });
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Playback);
 
 
@@ -37644,6 +37726,8 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 
 var initialState = {
     currentlyPlayingResponse: undefined,
+    trackItem: undefined,
+    progress: undefined,
     loading: false,
     error: null
 };
@@ -37661,6 +37745,8 @@ function spotifyReducer() {
         case _spotifyActions.FETCH_CURRENTLYPLAYING_SUCCESS:
             return _extends({}, state, {
                 loading: false,
+                progress: action.payload.response.progress_ms,
+                trackItem: action.payload.response.item,
                 currentlyPlayingResponse: action.payload.response
             });
         case _spotifyActions.FETCH_CURRENTLYPLAYING_FAILURE:
