@@ -17,7 +17,7 @@ export interface PlaybackProps {
 }
 
 type PlaybackState = {
-    currentDiscoBackground: string | null;
+    currentDiscoBackground: string;
     cantGetEnoughRB: number;
 };
 
@@ -44,6 +44,9 @@ PlaybackState > {
                 .props
                 .dispatch(getCurrentlyPlaying(token))
             const {trackItem, progress} = this.props;
+            if (trackItem.name === 'Friday') {
+                this.itsFriday();
+            }
             this.setSongTimer(progress, trackItem, token);
         }
     }
@@ -57,14 +60,17 @@ PlaybackState > {
             clearTimeout(changeSongTimer);
             this.setSongTimer(progress, trackItem, token);
             if (trackItem.name === 'Friday') {
-                this.partyDontStartTilIWalkIn();
-                let {cantGetEnoughRB} = this.state;
-                cantGetEnoughRB = cantGetEnoughRB += 1;
-                this.setState({cantGetEnoughRB});
+                this.itsFriday();
             } else {
                 this.partyStoppedBecauseIwalkedOut();
             }
         }, (duration_ms - progress));
+    }
+    itsFriday() {
+        this.partyDontStartTilIWalkIn();
+        let {cantGetEnoughRB} = this.state;
+        cantGetEnoughRB = cantGetEnoughRB += 1;
+        this.setState({cantGetEnoughRB});
     }
     partyDontStartTilIWalkIn() {
         const partyColors = ['#0FC0FC', '#7B1DAF', '#FF2FB9', '#D4FF47', '#1B3649'];
@@ -76,6 +82,7 @@ PlaybackState > {
     }
     partyStoppedBecauseIwalkedOut() {
         clearInterval(partyInterval);
+        this.setState({currentDiscoBackground: 'transparent'});
     }
     render() {
         const {currentlyPlayingResponse, trackItem} = this.props;
