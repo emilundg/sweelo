@@ -29,21 +29,27 @@ class Playback extends React.Component < PlaybackProps, {} > {
     }
     render() {
         const {currentlyPlayingResponse} = this.props;
+        if (currentlyPlayingResponse) {
+            return (
+                <div>
+                    <h1>2k10</h1>
+                    {currentlyPlayingResponse && <div>
+                        <h1>{currentlyPlayingResponse.item.name}</h1>
+                        {console.log(currentlyPlayingResponse)}
+                        {currentlyPlayingResponse
+                            .item
+                            .album
+                            .images
+                            .map((image : any) => {
+                                return (<img key={image.url} src={image.url} height={image.height} width={image.width}/>)
+                            })}
+                    </div>}
+                </div>
+            );
+        }
         return (
-            <div>
-                {currentlyPlayingResponse && <div>
-                    <h1>{currentlyPlayingResponse.item.name}</h1>
-                    {console.log(currentlyPlayingResponse)}
-                    {currentlyPlayingResponse
-                        .item
-                        .album
-                        .images
-                        .map((image : any) => {
-                            return (<img key={image.url} src={image.url} height={image.height} width={image.width}/>)
-                        })}
-                </div>}
-            </div>
-        );
+            <div></div>
+        )
     }
 }
 

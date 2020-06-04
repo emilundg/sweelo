@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./main.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -125,11 +125,21 @@ exports.default = Root;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(module) {
 
 Object.defineProperty(exports, "__esModule", {
         value: true
 });
+
+(function () {
+        var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+        enterModule && enterModule(module);
+})();
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+        return a;
+};
+
 var SET_ACCESS_TOKEN = exports.SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
 
 var setAccessToken = exports.setAccessToken = function setAccessToken(token) {
@@ -137,6 +147,26 @@ var setAccessToken = exports.setAccessToken = function setAccessToken(token) {
                         token: token
                 } };
 };
+;
+
+(function () {
+        var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+        if (!reactHotLoader) {
+                return;
+        }
+
+        reactHotLoader.register(SET_ACCESS_TOKEN, 'SET_ACCESS_TOKEN', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/authenticateActions.js');
+        reactHotLoader.register(setAccessToken, 'setAccessToken', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/authenticateActions.js');
+})();
+
+;
+
+(function () {
+        var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+        leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -148,18 +178,27 @@ var setAccessToken = exports.setAccessToken = function setAccessToken(token) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(module) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.getCurrentlyPlaying = exports.fetchCurentlyPlayingFailure = exports.fetchCurentlyPlayingSuccess = exports.fetchCurentlyPlayingBegin = exports.FETCH_CURRENTLYPLAYING_FAILURE = exports.FETCH_CURRENTLYPLAYING_SUCCESS = exports.FETCH_CURRENTLYPLAYING_BEGIN = undefined;
 
+(function () {
+    var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+    enterModule && enterModule(module);
+})();
+
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+    return a;
+};
 
 var FETCH_CURRENTLYPLAYING_BEGIN = exports.FETCH_CURRENTLYPLAYING_BEGIN = 'FETCH_CURRENTLYPLAYING_BEGIN';
 var FETCH_CURRENTLYPLAYING_SUCCESS = exports.FETCH_CURRENTLYPLAYING_SUCCESS = 'FETCH_CURRENTLYPLAYING_SUCCESS';
@@ -194,6 +233,31 @@ var getCurrentlyPlaying = exports.getCurrentlyPlaying = function getCurrentlyPla
         });
     };
 };
+;
+
+(function () {
+    var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+    if (!reactHotLoader) {
+        return;
+    }
+
+    reactHotLoader.register(FETCH_CURRENTLYPLAYING_BEGIN, 'FETCH_CURRENTLYPLAYING_BEGIN', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+    reactHotLoader.register(FETCH_CURRENTLYPLAYING_SUCCESS, 'FETCH_CURRENTLYPLAYING_SUCCESS', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+    reactHotLoader.register(FETCH_CURRENTLYPLAYING_FAILURE, 'FETCH_CURRENTLYPLAYING_FAILURE', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+    reactHotLoader.register(fetchCurentlyPlayingBegin, 'fetchCurentlyPlayingBegin', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+    reactHotLoader.register(fetchCurentlyPlayingSuccess, 'fetchCurentlyPlayingSuccess', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+    reactHotLoader.register(fetchCurentlyPlayingFailure, 'fetchCurentlyPlayingFailure', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+    reactHotLoader.register(getCurrentlyPlaying, 'getCurrentlyPlaying', '/Users/emillundgren/Documents/work/cygni/sweelo/actions/spotifyActions.js');
+})();
+
+;
+
+(function () {
+    var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+    leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -295,16 +359,21 @@ class Playback extends React.Component {
     }
     render() {
         const { currentlyPlayingResponse } = this.props;
-        return (React.createElement("div", null, currentlyPlayingResponse && React.createElement("div", null,
-            React.createElement("h1", null, currentlyPlayingResponse.item.name),
-            console.log(currentlyPlayingResponse),
-            currentlyPlayingResponse
-                .item
-                .album
-                .images
-                .map((image) => {
-                return (React.createElement("img", { key: image.url, src: image.url, height: image.height, width: image.width }));
-            }))));
+        if (currentlyPlayingResponse) {
+            return (React.createElement("div", null,
+                React.createElement("h1", null, "2k10"),
+                currentlyPlayingResponse && React.createElement("div", null,
+                    React.createElement("h1", null, currentlyPlayingResponse.item.name),
+                    console.log(currentlyPlayingResponse),
+                    currentlyPlayingResponse
+                        .item
+                        .album
+                        .images
+                        .map((image) => {
+                        return (React.createElement("img", { key: image.url, src: image.url, height: image.height, width: image.width }));
+                    }))));
+        }
+        return (React.createElement("div", null));
     }
 }
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
@@ -322,7 +391,12 @@ exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Pla
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(module) {
 
+(function () {
+    var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+    enterModule && enterModule(module);
+})();
 
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
@@ -350,6 +424,10 @@ var _rootReducer2 = _interopRequireDefault(_rootReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+    return a;
+};
+
 var store = (0, _redux.createStore)(_rootReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
 var App = function App() {
     return _react2.default.createElement(
@@ -360,6 +438,26 @@ var App = function App() {
 };
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+;
+
+(function () {
+    var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+    if (!reactHotLoader) {
+        return;
+    }
+
+    reactHotLoader.register(store, 'store', '/Users/emillundgren/Documents/work/cygni/sweelo/main.js');
+    reactHotLoader.register(App, 'App', '/Users/emillundgren/Documents/work/cygni/sweelo/main.js');
+})();
+
+;
+
+(function () {
+    var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+    leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -29639,6 +29737,36 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-hot-loader/dist/react-hot-loader.production.min.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-hot-loader/dist/react-hot-loader.production.min.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+function _interopDefault(e){return e&&"object"==typeof e&&"default"in e?e.default:e}Object.defineProperty(exports,"__esModule",{value:!0});var React=_interopDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));function AppContainer(e){return AppContainer.warnAboutHMRDisabled&&(AppContainer.warnAboutHMRDisabled=!0,console.error("React-Hot-Loader: misconfiguration detected, using production version in non-production environment."),console.error("React-Hot-Loader: Hot Module Replacement is not enabled.")),React.Children.only(e.children)}AppContainer.warnAboutHMRDisabled=!1;var hot=function e(){return e.shouldWrapWithAppContainer?function(e){return function(n){return React.createElement(AppContainer,null,React.createElement(e,n))}}:function(e){return e}};hot.shouldWrapWithAppContainer=!1;var areComponentsEqual=function(e,n){return e===n},setConfig=function(){},cold=function(e){return e},configureComponent=function(){};exports.AppContainer=AppContainer,exports.hot=hot,exports.areComponentsEqual=areComponentsEqual,exports.setConfig=setConfig,exports.cold=cold,exports.configureComponent=configureComponent;
+
+
+/***/ }),
+
+/***/ "./node_modules/react-hot-loader/patch.js":
+/*!************************************************!*\
+  !*** ./node_modules/react-hot-loader/patch.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (true) {
+  module.exports = __webpack_require__(/*! ./dist/react-hot-loader.production.min.js */ "./node_modules/react-hot-loader/dist/react-hot-loader.production.min.js");
+} else {}
+
+
+/***/ }),
+
 /***/ "./node_modules/react-is/cjs/react-is.development.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-is/cjs/react-is.development.js ***!
@@ -37383,6 +37511,39 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if (!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
 /***/ "./reducers/authenticateReducer.js":
 /*!*****************************************!*\
   !*** ./reducers/authenticateReducer.js ***!
@@ -37391,7 +37552,7 @@ module.exports = function(originalModule) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(module) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -37399,9 +37560,18 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+(function () {
+    var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+    enterModule && enterModule(module);
+})();
+
 exports.default = authenticateReducer;
 
 var _authenticateActions = __webpack_require__(/*! ../actions/authenticateActions */ "./actions/authenticateActions.js");
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+    return a;
+};
 
 var initialState = {
     token: undefined
@@ -37420,6 +37590,26 @@ function authenticateReducer() {
             return state;
     }
 }
+;
+
+(function () {
+    var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+    if (!reactHotLoader) {
+        return;
+    }
+
+    reactHotLoader.register(authenticateReducer, 'authenticateReducer', '/Users/emillundgren/Documents/work/cygni/sweelo/reducers/authenticateReducer.js');
+    reactHotLoader.register(initialState, 'initialState', '/Users/emillundgren/Documents/work/cygni/sweelo/reducers/authenticateReducer.js');
+})();
+
+;
+
+(function () {
+    var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+    leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -37431,7 +37621,7 @@ function authenticateReducer() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(module) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -37439,9 +37629,18 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+(function () {
+    var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+    enterModule && enterModule(module);
+})();
+
 exports.default = spotifyReducer;
 
 var _spotifyActions = __webpack_require__(/*! ../actions/spotifyActions */ "./actions/spotifyActions.js");
+
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+    return a;
+};
 
 var initialState = {
     currentlyPlayingResponse: undefined,
@@ -37474,6 +37673,26 @@ function spotifyReducer() {
             return state;
     }
 }
+;
+
+(function () {
+    var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+    if (!reactHotLoader) {
+        return;
+    }
+
+    reactHotLoader.register(spotifyReducer, 'spotifyReducer', '/Users/emillundgren/Documents/work/cygni/sweelo/reducers/spotifyReducer.js');
+    reactHotLoader.register(initialState, 'initialState', '/Users/emillundgren/Documents/work/cygni/sweelo/reducers/spotifyReducer.js');
+})();
+
+;
+
+(function () {
+    var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+    leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -37485,11 +37704,16 @@ function spotifyReducer() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(module) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+(function () {
+  var enterModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.enterModule : undefined;
+  enterModule && enterModule(module);
+})();
 
 var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
@@ -37503,7 +37727,32 @@ var _spotifyReducer2 = _interopRequireDefault(_spotifyReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.combineReducers)({ authenticate: _authenticateReducer2.default, spotify: _spotifyReducer2.default });
+var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default.signature : function (a) {
+  return a;
+};
+
+var _default = (0, _redux.combineReducers)({ authenticate: _authenticateReducer2.default, spotify: _spotifyReducer2.default });
+
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.default : undefined;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(_default, "default", "/Users/emillundgren/Documents/work/cygni/sweelo/rootReducer.js");
+})();
+
+;
+
+(function () {
+  var leaveModule = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoaderGlobal.leaveModule : undefined;
+  leaveModule && leaveModule(module);
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -37526,6 +37775,19 @@ exports.spotifyConfig = {
         redirectUri: 'http://localhost:8080/playback'
     }
 };
+
+
+/***/ }),
+
+/***/ 0:
+/*!**********************************************!*\
+  !*** multi react-hot-loader/patch ./main.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! react-hot-loader/patch */"./node_modules/react-hot-loader/patch.js");
+module.exports = __webpack_require__(/*! ./main.js */"./main.js");
 
 
 /***/ })

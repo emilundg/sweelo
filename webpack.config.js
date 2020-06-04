@@ -3,9 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: {
-        app: './main.js'
-    },
+    entry: [
+        'react-hot-loader/patch', './main.js'
+    ],
+    // entry: { app: './main.js' },
     devtool: "source-map",
     output: {
         path: path.join(__dirname, '/public'),
