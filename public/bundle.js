@@ -353,19 +353,21 @@ const styles = {
         textAlign: 'center',
         padding: 34,
         borderRadius: 21,
-        height: 610,
+        marginVertical: 89,
+        height: '100vh',
         position: 'absolute',
         top: 0,
         bottom: 0,
         right: 0,
         width: 377,
-        backgroundColor: 'rgba(0,0,0,0.55)'
+        backgroundColor: 'rgba(151,0,204,0.21)'
     },
     highscore__tableHeader: {
         fontSize: 21,
-        color: 'rgba(255,255,255, 0.89)'
+        color: '#035ee8'
     },
     highscore__number: {
+        color: '#2de2e6',
         display: 'flex',
         alignItems: 'center',
         flex: 1,
@@ -432,12 +434,12 @@ class Playback extends React.Component {
     }
     setSongTimer(progress, trackItem, token) {
         const { duration_ms } = trackItem;
-        const changeSongTimer = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+        const changeSongTimer = setTimeout(() => __awaiter(this, void 0, void 0, function* () {
             yield this
                 .props
                 .dispatch(spotifyActions_1.getCurrentlyPlaying(token));
             const { trackItem, progress } = this.props;
-            clearInterval(changeSongTimer);
+            clearTimeout(changeSongTimer);
             this.setSongTimer(progress, trackItem, token);
             console.log(trackItem.name);
             if (trackItem.name === 'Friday') {
@@ -453,26 +455,39 @@ class Playback extends React.Component {
         if (currentlyPlayingResponse) {
             return (React.createElement("div", null,
                 React.createElement("div", null,
-                    React.createElement("h1", null, currentlyPlayingResponse.item.name),
                     console.log(currentlyPlayingResponse),
-                    React.createElement("div", { style: {
-                            display: 'flex',
-                            flex: 1,
-                            justifyContent: 'center'
-                        } },
+                    React.createElement("div", { style: styles.playback_albumContainer },
+                        React.createElement("div", { style: styles.playback__songtitle }, currentlyPlayingResponse.item.name),
+                        trackItem
+                            .artists
+                            .map((artist) => {
+                            return (React.createElement("p", { key: artist.id }, artist.name));
+                        }),
                         React.createElement("div", { style: {
                                 height: 400,
                                 width: 400,
                                 backgroundPosition: 'center',
                                 backgroundSize: 'fit',
                                 backgroundImage: `url(${trackItem.album.images[0].url})`,
-                                boxShadow: 'rgb(255, 255, 255) 0px 8px 0px 0px, rgba(0, 0, 0, 0.3) 0px 0px 8px'
+                                boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.34)'
                             } }))),
                 React.createElement(HighScoreTable_1.default, { cantGetEnoughRB: cantGetEnoughRB })));
         }
         return (React.createElement("div", null));
     }
 }
+const styles = {
+    playback__songtitle: {
+        fontSize: 55
+    },
+    playback_albumContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: 'column'
+    }
+};
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
 const mapStateToProps = (state) => ({ token: state.authenticate.token, currentlyPlayingResponse: state.spotify.currentlyPlayingResponse, trackItem: state.spotify.trackItem, progress: state.spotify.progress });
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Playback);

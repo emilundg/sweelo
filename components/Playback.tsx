@@ -46,12 +46,12 @@ PlaybackState > {
     }
     setSongTimer(progress : number, trackItem : any, token : string) {
         const {duration_ms} = trackItem;
-        const changeSongTimer = setInterval(async() => {
+        const changeSongTimer = setTimeout(async() => {
             await this
                 .props
                 .dispatch(getCurrentlyPlaying(token))
             const {trackItem, progress} = this.props;
-            clearInterval(changeSongTimer);
+            clearTimeout(changeSongTimer);
             this.setSongTimer(progress, trackItem, token);
             console.log(trackItem.name)
             if (trackItem.name === 'Friday') {
@@ -68,14 +68,16 @@ PlaybackState > {
             return (
                 <div>
                     <div>
-                        <h1>{currentlyPlayingResponse.item.name}</h1>
                         {console.log(currentlyPlayingResponse)}
-                        <div
-                            style={{
-                            display: 'flex',
-                            flex: 1,
-                            justifyContent: 'center'
-                        }}>
+                        <div style={styles.playback_albumContainer}>
+                            <div style={styles.playback__songtitle}>{currentlyPlayingResponse.item.name}</div>
+                            {trackItem
+                                .artists
+                                .map((artist: []) => {
+                                    return (
+                                        <p key={artist.id}>{artist.name}</p>
+                                    )
+                                })}
                             <div
                                 style={{
                                 height: 400,
@@ -83,7 +85,7 @@ PlaybackState > {
                                 backgroundPosition: 'center',
                                 backgroundSize: 'fit',
                                 backgroundImage: `url(${trackItem.album.images[0].url})`,
-                                boxShadow: 'rgb(255, 255, 255) 0px 8px 0px 0px, rgba(0, 0, 0, 0.3) 0px 0px 8px'
+                                boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.34)'
                             }}></div>
                         </div>
                     </div>
@@ -94,6 +96,19 @@ PlaybackState > {
         return (
             <div></div>
         )
+    }
+}
+
+const styles = {
+    playback__songtitle: {
+        fontSize: 55
+    },
+    playback_albumContainer: {
+        alignItems: 'center',
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: 'column'
     }
 }
 
