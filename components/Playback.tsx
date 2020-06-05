@@ -97,7 +97,7 @@ PlaybackState > {
                     transition: 'background-color 250ms linear',
                     backgroundColor: currentDiscoBackground
                 }}>
-                    <div>
+                    <div style={styles.playback__centerContainer}>
                         {console.log(currentlyPlayingResponse)}
                         <div style={styles.playback__albumContainer}>
                             <div style={styles.playback__songtitle}>{currentlyPlayingResponse.item.name}</div>
@@ -136,12 +136,20 @@ PlaybackState > {
 
 const styles : {
     playback__songtitle : React.CSSProperties,
+    playback__centerContainer : React.CSSProperties,
     playback__albumContainer : React.CSSProperties,
     playback__artistWrapper : React.CSSProperties,
     playback__artistText : React.CSSProperties
 } = {
     playback__songtitle: {
+        maxWidth: '55rem',
         fontSize: 55
+    },
+    playback__centerContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     playback__albumContainer: {
         alignItems: 'center',

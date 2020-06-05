@@ -482,7 +482,7 @@ class Playback extends React.Component {
                     transition: 'background-color 250ms linear',
                     backgroundColor: currentDiscoBackground
                 } },
-                React.createElement("div", null,
+                React.createElement("div", { style: styles.playback__centerContainer },
                     console.log(currentlyPlayingResponse),
                     React.createElement("div", { style: styles.playback__albumContainer },
                         React.createElement("div", { style: styles.playback__songtitle }, currentlyPlayingResponse.item.name),
@@ -509,7 +509,14 @@ class Playback extends React.Component {
 }
 const styles = {
     playback__songtitle: {
+        maxWidth: '55rem',
         fontSize: 55
+    },
+    playback__centerContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     playback__albumContainer: {
         alignItems: 'center',
