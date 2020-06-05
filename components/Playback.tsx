@@ -6,6 +6,8 @@ import {setAccessToken} from "../actions/authenticateActions";
 import {getCurrentlyPlaying} from "../actions/spotifyActions";
 // @ts-ignore
 import HighscoreTable from "./HighScoreTable";
+// @ts-ignore
+import ProgressBar from "./ProgressBar";
 
 let partyInterval : any;
 export interface PlaybackProps {
@@ -50,7 +52,7 @@ PlaybackState > {
             this.setSongTimer(progress, trackItem, token);
         }
     }
-    setSongTimer(progress : number, trackItem : any, token : string) {
+    setSongTimer = (progress : number, trackItem : any, token : string) => {
         const {duration_ms} = trackItem;
         const changeSongTimer = setTimeout(async() => {
             await this
@@ -85,7 +87,7 @@ PlaybackState > {
         this.setState({currentDiscoBackground: 'transparent'});
     }
     render() {
-        const {currentlyPlayingResponse, trackItem} = this.props;
+        const {currentlyPlayingResponse, trackItem, progress} = this.props;
         const {cantGetEnoughRB, currentDiscoBackground} = this.state;
         if (currentlyPlayingResponse) {
             return (
@@ -120,6 +122,7 @@ PlaybackState > {
                                 boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.34)'
                             }}></div>
                         </div>
+                        <ProgressBar progress={progress} songLength={trackItem.duration_ms}></ProgressBar>
                     </div>
                     <HighscoreTable cantGetEnoughRB={cantGetEnoughRB}></HighscoreTable>
                 </div>

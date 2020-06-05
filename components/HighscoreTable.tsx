@@ -29,8 +29,6 @@ const styles : {
         textAlign: 'center',
         padding: 34,
         borderRadius: 21,
-        marginTop: 89,
-        marginBottom: 89,
         height: '100vh',
         position: 'absolute',
         top: 0,

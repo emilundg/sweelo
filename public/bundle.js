@@ -330,9 +330,53 @@ exports.default = Header;
   !*** ./components/HighScoreTable.tsx ***!
   \***************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module parse failed: Unexpected token (18:16)\nFile was processed with these loaders:\n * ./node_modules/ts-loader/index.js\nYou may need an additional loader to handle the result of these loaders.\n| const styles = {\n|     highscore: React.CSSProperties\n> }, { textAlign: , 'center': , padding: , 34: , borderRadius: , 21: , marginVertical: , 89: , height: , '100vh': , position: , 'absolute': , top: , 0: , bottom: , 0: , right: , 0: , width: , 377: , backgroundColor: , 'rgba(151,0,204,0.21)':  }, highscore__tableHeader, highscore__number;\n| exports.default = HighscoreTable;\n| ");
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+class HighscoreTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    render() {
+        const { cantGetEnoughRB } = this.props;
+        return (React.createElement("div", { style: styles.highscore },
+            React.createElement("div", { style: styles.highscore__tableHeader }, "HIGHSCORE"),
+            React.createElement("div", { style: styles.highscore__number }, cantGetEnoughRB)));
+    }
+}
+const styles = {
+    highscore: {
+        textAlign: 'center',
+        padding: 34,
+        borderRadius: 21,
+        height: '100vh',
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        width: 377,
+        backgroundColor: 'rgba(151,0,204,0.21)'
+    },
+    highscore__tableHeader: {
+        fontSize: 21,
+        color: '#035ee8'
+    },
+    highscore__number: {
+        color: '#2de2e6',
+        display: 'flex',
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        fontSize: 133,
+        height: '100%'
+    }
+};
+exports.default = HighscoreTable;
+
 
 /***/ }),
 
@@ -363,6 +407,8 @@ const authenticateActions_1 = __webpack_require__(/*! ../actions/authenticateAct
 const spotifyActions_1 = __webpack_require__(/*! ../actions/spotifyActions */ "./actions/spotifyActions.js");
 // @ts-ignore
 const HighScoreTable_1 = __webpack_require__(/*! ./HighScoreTable */ "./components/HighScoreTable.tsx");
+// @ts-ignore
+const ProgressBar_1 = __webpack_require__(/*! ./ProgressBar */ "./components/ProgressBar.tsx");
 let partyInterval;
 class Playback extends React.Component {
     constructor(props) {
@@ -387,27 +433,27 @@ class Playback extends React.Component {
                 this.setSongTimer(progress, trackItem, token);
             }
         });
+        this.setSongTimer = (progress, trackItem, token) => {
+            const { duration_ms } = trackItem;
+            const changeSongTimer = setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+                yield this
+                    .props
+                    .dispatch(spotifyActions_1.getCurrentlyPlaying(token));
+                const { trackItem, progress } = this.props;
+                clearTimeout(changeSongTimer);
+                this.setSongTimer(progress, trackItem, token);
+                if (trackItem.name === 'Friday') {
+                    this.itsFriday();
+                }
+                else {
+                    this.partyStoppedBecauseIwalkedOut();
+                }
+            }), (duration_ms - progress));
+        };
         this.state = {
             currentDiscoBackground: null,
             cantGetEnoughRB: 0
         };
-    }
-    setSongTimer(progress, trackItem, token) {
-        const { duration_ms } = trackItem;
-        const changeSongTimer = setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-            yield this
-                .props
-                .dispatch(spotifyActions_1.getCurrentlyPlaying(token));
-            const { trackItem, progress } = this.props;
-            clearTimeout(changeSongTimer);
-            this.setSongTimer(progress, trackItem, token);
-            if (trackItem.name === 'Friday') {
-                this.itsFriday();
-            }
-            else {
-                this.partyStoppedBecauseIwalkedOut();
-            }
-        }), (duration_ms - progress));
     }
     itsFriday() {
         this.partyDontStartTilIWalkIn();
@@ -428,7 +474,7 @@ class Playback extends React.Component {
         this.setState({ currentDiscoBackground: 'transparent' });
     }
     render() {
-        const { currentlyPlayingResponse, trackItem } = this.props;
+        const { currentlyPlayingResponse, trackItem, progress } = this.props;
         const { cantGetEnoughRB, currentDiscoBackground } = this.state;
         if (currentlyPlayingResponse) {
             return (React.createElement("div", { style: {
@@ -438,7 +484,7 @@ class Playback extends React.Component {
                 } },
                 React.createElement("div", null,
                     console.log(currentlyPlayingResponse),
-                    React.createElement("div", { style: styles.playback_albumContainer },
+                    React.createElement("div", { style: styles.playback__albumContainer },
                         React.createElement("div", { style: styles.playback__songtitle }, currentlyPlayingResponse.item.name),
                         React.createElement("div", { style: styles.playback__artistWrapper }, trackItem
                             .artists
@@ -454,7 +500,8 @@ class Playback extends React.Component {
                                 backgroundImage: `url(${trackItem.album.images[0].url})`,
                                 transition: 'box-shadow 0.3s ease-in-out',
                                 boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.34)'
-                            } }))),
+                            } })),
+                    React.createElement(ProgressBar_1.default, { progress: progress, songLength: trackItem.duration_ms })),
                 React.createElement(HighScoreTable_1.default, { cantGetEnoughRB: cantGetEnoughRB })));
         }
         return (React.createElement("div", null));
@@ -464,7 +511,7 @@ const styles = {
     playback__songtitle: {
         fontSize: 55
     },
-    playback_albumContainer: {
+    playback__albumContainer: {
         alignItems: 'center',
         display: 'flex',
         flex: 1,
@@ -485,6 +532,75 @@ const styles = {
 const mapDispatchToProps = (dispatch) => ({ setAccessToken: authenticateActions_1.setAccessToken, getCurrentlyPlaying: spotifyActions_1.getCurrentlyPlaying, dispatch });
 const mapStateToProps = (state) => ({ token: state.authenticate.token, currentlyPlayingResponse: state.spotify.currentlyPlayingResponse, trackItem: state.spotify.trackItem, progress: state.spotify.progress });
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Playback);
+
+
+/***/ }),
+
+/***/ "./components/ProgressBar.tsx":
+/*!************************************!*\
+  !*** ./components/ProgressBar.tsx ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+const react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+let progressInterval;
+class ProgressBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            localProgress: 0
+        };
+    }
+    componentDidMount() {
+        const { progress, songLength } = this.props;
+        this.setState({ localProgress: progress });
+        this.calculateProgress(progress, songLength);
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.progress !== this.props.progress && prevProps.songLength !== this.props.songLength) {
+            const { progress, songLength } = this.props;
+            clearInterval(progressInterval);
+            this.setState({ localProgress: 0 });
+            this.calculateProgress(progress, songLength);
+        }
+    }
+    calculateProgress(currentProgress, songLength) {
+        progressInterval = setInterval(() => {
+            this.setState({
+                localProgress: (currentProgress += 650) / songLength * 100
+            });
+        }, 650);
+    }
+    render() {
+        const { localProgress } = this.state;
+        return (React.createElement("div", { style: styles.progressBar },
+            React.createElement("div", { style: {
+                    transition: 'width 400ms linear',
+                    width: `${localProgress}%`,
+                    height: '100%',
+                    backgroundColor: 'blue',
+                    borderRadius: 55
+                } })));
+    }
+}
+const styles = {
+    progressBar: {
+        marginTop: 34,
+        width: '89%',
+        maxWidth: '55rem',
+        height: 13,
+        backgroundColor: 'white',
+        borderRadius: 55
+    }
+};
+const mapDispatchToProps = (dispatch) => ({ dispatch });
+const mapStateToProps = (state) => ({});
+exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(ProgressBar);
 
 
 /***/ }),
