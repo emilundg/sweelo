@@ -26,6 +26,7 @@ const styles : {
     highscore__number : React.CSSProperties
 } = {
     highscore: {
+        boxShadow: '0px 0px 55px 19px rgba(45,226,230,0.13)',
         textAlign: 'center',
         padding: 34,
         borderRadius: 21,

@@ -143,6 +143,7 @@ const styles : {
 } = {
     playback__songtitle: {
         maxWidth: '55rem',
+        textAlign: 'center',
         fontSize: 55
     },
     playback__centerContainer: {
