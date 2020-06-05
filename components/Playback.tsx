@@ -97,7 +97,7 @@ PlaybackState > {
                 }}>
                     <div>
                         {console.log(currentlyPlayingResponse)}
-                        <div style={styles.playback_albumContainer}>
+                        <div style={styles.playback__albumContainer}>
                             <div style={styles.playback__songtitle}>{currentlyPlayingResponse.item.name}</div>
                             <div style={styles.playback__artistWrapper}>
                                 {trackItem
@@ -131,11 +131,16 @@ PlaybackState > {
     }
 }
 
-const styles = {
+const styles : {
+    playback__songtitle : React.CSSProperties,
+    playback__albumContainer : React.CSSProperties,
+    playback__artistWrapper : React.CSSProperties,
+    playback__artistText : React.CSSProperties
+} = {
     playback__songtitle: {
         fontSize: 55
     },
-    playback_albumContainer: {
+    playback__albumContainer: {
         alignItems: 'center',
         display: 'flex',
         flex: 1,
