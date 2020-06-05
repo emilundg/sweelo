@@ -330,54 +330,9 @@ exports.default = Header;
   !*** ./components/HighScoreTable.tsx ***!
   \***************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-class HighscoreTable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        const { cantGetEnoughRB } = this.props;
-        return (React.createElement("div", { style: styles.highscore },
-            React.createElement("div", { style: styles.highscore__tableHeader }, "HIGHSCORE"),
-            React.createElement("div", { style: styles.highscore__number }, cantGetEnoughRB)));
-    }
-}
-const styles = {
-    highscore: {
-        textAlign: 'center',
-        padding: 34,
-        borderRadius: 21,
-        marginVertical: 89,
-        height: '100vh',
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        width: 377,
-        backgroundColor: 'rgba(151,0,204,0.21)'
-    },
-    highscore__tableHeader: {
-        fontSize: 21,
-        color: '#035ee8'
-    },
-    highscore__number: {
-        color: '#2de2e6',
-        display: 'flex',
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        fontSize: 133,
-        height: '100%'
-    }
-};
-exports.default = HighscoreTable;
-
+throw new Error("Module parse failed: Unexpected token (18:16)\nFile was processed with these loaders:\n * ./node_modules/ts-loader/index.js\nYou may need an additional loader to handle the result of these loaders.\n| const styles = {\n|     highscore: React.CSSProperties\n> }, { textAlign: , 'center': , padding: , 34: , borderRadius: , 21: , marginVertical: , 89: , height: , '100vh': , position: , 'absolute': , top: , 0: , bottom: , 0: , right: , 0: , width: , 377: , backgroundColor: , 'rgba(151,0,204,0.21)':  }, highscore__tableHeader, highscore__number;\n| exports.default = HighscoreTable;\n| ");
 
 /***/ }),
 

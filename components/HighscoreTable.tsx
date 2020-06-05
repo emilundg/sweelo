@@ -20,12 +20,17 @@ HighscoreState > {
     }
 }
 
-const styles = {
+const styles : {
+    highscore : React.CSSProperties,
+    highscore__tableHeader : React.CSSProperties,
+    highscore__number : React.CSSProperties
+} = {
     highscore: {
         textAlign: 'center',
         padding: 34,
         borderRadius: 21,
-        marginVertical: 89,
+        marginTop: 89,
+        marginBottom: 89,
         height: '100vh',
         position: 'absolute',
         top: 0,
