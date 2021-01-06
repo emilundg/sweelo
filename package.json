@@ -41,7 +41,7 @@
     "dependencies": {
         "@types/react-redux": "^7.1.9",
         "@types/react-router-dom": "^5.1.5",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "babel-core": "^6.26.3",
         "babel-preset-env": "^1.7.0",
         "babel-preset-es2015": "^6.24.1",
